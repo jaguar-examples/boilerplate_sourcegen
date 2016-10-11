@@ -1,0 +1,5 @@
+bin:
+  'bin/server.dart'
+
+apis:
+  - 'lib/basic_api/api.dart'
