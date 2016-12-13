@@ -1,6 +1,6 @@
 import 'package:jaguar/jaguar.dart' as jaguar;
 
-import 'package:examples/api.dart';
+import 'package:boilerplate/api.dart';
 
 main(List<String> args) async {
   ExampleApi ea = new ExampleApi();
