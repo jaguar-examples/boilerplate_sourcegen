@@ -2,4 +2,4 @@ name: boilerplate
 version: 0.0.1
 description: boilerplate for jaguar
 dependencies:
-  jaguar: 0.1.0
+  jaguar:

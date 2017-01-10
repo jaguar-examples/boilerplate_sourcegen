@@ -13,10 +13,10 @@ class ExampleRouteGroup extends _$JaguarExampleRouteGroup {
   @Get()
   @WrapEncodeToJson()
   Map info() => {
-    'name': 'jaguar',
-    'motto': 'Speed. Simplicity. Extensiblity.',
-    'degree of awesomeness': 'infinity!',
-  };
+        'name': 'jaguar',
+        'motto': 'Speed. Simplicity. Extensiblity.',
+        'degree of awesomeness': 'infinity!',
+      };
 }
 
 @Api(path: '/api')
