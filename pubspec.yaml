@@ -1,5 +1,5 @@
 name: boilerplate
-version: 0.0.2
+version: 0.2.0
 description: boilerplate for jaguar
 dependencies:
-  jaguar: '>=0.1.15 <0.2.0'
+  jaguar: '>=0.2.4 <0.3.0'

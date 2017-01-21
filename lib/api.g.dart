@@ -12,7 +12,7 @@ abstract class _$JaguarExampleRouteGroup implements RequestHandler {
 
   Map<dynamic, dynamic> info();
 
-  Future<bool> handleRequest(HttpRequest request, {String prefix: ''}) async {
+  Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/info';
     PathParams pathParams = new PathParams();
     bool match = false;
@@ -26,19 +26,19 @@ abstract class _$JaguarExampleRouteGroup implements RequestHandler {
       try {
         iEncodeToJson = new WrapEncodeToJson().createInterceptor();
         rRouteResponse0.statusCode = 200;
+        rRouteResponse0.setContentType('text/plain; charset=us-ascii');
         rRouteResponse0.value = info();
         Response<String> rRouteResponse1 = iEncodeToJson.post(
           rRouteResponse0,
         );
-        await rRouteResponse1.writeResponse(request.response);
+        return rRouteResponse1;
       } catch (e) {
         await iEncodeToJson?.onException();
         rethrow;
       }
-      return true;
     }
 
-    return false;
+    return null;
   }
 }
 
@@ -56,7 +56,7 @@ abstract class _$JaguarExampleApi implements RequestHandler {
 
   num version();
 
-  Future<bool> handleRequest(HttpRequest request, {String prefix: ''}) async {
+  Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/api';
     PathParams pathParams = new PathParams();
     bool match = false;
@@ -68,18 +68,22 @@ abstract class _$JaguarExampleApi implements RequestHandler {
       Response<num> rRouteResponse0 = new Response(null);
       try {
         rRouteResponse0.statusCode = 200;
+        rRouteResponse0.setContentType('text/plain; charset=us-ascii');
         rRouteResponse0.value = version();
-        await rRouteResponse0.writeResponse(request.response);
+        return rRouteResponse0;
       } catch (e) {
         rethrow;
       }
-      return true;
     }
 
-    if (await exampleRoutes.handleRequest(request, prefix: prefix)) {
-      return true;
+    {
+      Response response =
+          await exampleRoutes.handleRequest(request, prefix: prefix);
+      if (response is Response) {
+        return response;
+      }
     }
 
-    return false;
+    return null;
   }
 }
