@@ -7,10 +7,16 @@ part of api;
 // Target: class ExampleRouteGroup
 // **************************************************************************
 
-abstract class _$JaguarExampleRouteGroup implements RequestHandler {
+class JaguarExampleRouteGroup implements RequestHandler {
   static const List<RouteBase> routes = const <RouteBase>[const Get()];
 
-  Map<dynamic, dynamic> info();
+  final ExampleRouteGroup _internal;
+
+  factory JaguarExampleRouteGroup() {
+    final instance = new ExampleRouteGroup();
+    return new JaguarExampleRouteGroup.from(instance);
+  }
+  JaguarExampleRouteGroup.from(this._internal);
 
   Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/info';
@@ -26,8 +32,9 @@ abstract class _$JaguarExampleRouteGroup implements RequestHandler {
       try {
         iEncodeToJson = new WrapEncodeToJson().createInterceptor();
         rRouteResponse0.statusCode = 200;
-        rRouteResponse0.setContentType('text/plain; charset=us-ascii');
-        rRouteResponse0.value = info();
+        rRouteResponse0.headers
+            .set('content-type', 'text/plain; charset=utf-8');
+        rRouteResponse0.value = _internal.info();
         Response<String> rRouteResponse1 = iEncodeToJson.post(
           rRouteResponse0,
         );
@@ -47,14 +54,21 @@ abstract class _$JaguarExampleRouteGroup implements RequestHandler {
 // Target: class ExampleApi
 // **************************************************************************
 
-abstract class _$JaguarExampleApi implements RequestHandler {
+class JaguarExampleApi implements RequestHandler {
   static const List<RouteBase> routes = const <RouteBase>[
     const Route(path: '/version', methods: const ['GET'])
   ];
 
-  ExampleRouteGroup get exampleRoutes;
+  final ExampleApi _internal;
+  final JaguarExampleRouteGroup _exampleRoutesInternal;
 
-  num version();
+  factory JaguarExampleApi() {
+    final instance = new ExampleApi();
+    return new JaguarExampleApi.from(instance);
+  }
+  JaguarExampleApi.from(this._internal)
+      : _exampleRoutesInternal =
+            new JaguarExampleRouteGroup.from(_internal.exampleRoutes);
 
   Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/api';
@@ -68,8 +82,9 @@ abstract class _$JaguarExampleApi implements RequestHandler {
       Response<num> rRouteResponse0 = new Response(null);
       try {
         rRouteResponse0.statusCode = 200;
-        rRouteResponse0.setContentType('text/plain; charset=us-ascii');
-        rRouteResponse0.value = version();
+        rRouteResponse0.headers
+            .set('content-type', 'text/plain; charset=utf-8');
+        rRouteResponse0.value = _internal.version();
         return rRouteResponse0;
       } catch (e) {
         rethrow;
@@ -78,7 +93,7 @@ abstract class _$JaguarExampleApi implements RequestHandler {
 
     {
       Response response =
-          await exampleRoutes.handleRequest(request, prefix: prefix);
+          await _exampleRoutesInternal.handleRequest(request, prefix: prefix);
       if (response is Response) {
         return response;
       }

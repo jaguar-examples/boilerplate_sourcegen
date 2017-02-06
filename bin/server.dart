@@ -3,7 +3,7 @@ import 'package:jaguar/jaguar.dart' as jaguar;
 import 'package:boilerplate/api.dart';
 
 main(List<String> args) async {
-  ExampleApi ea = new ExampleApi();
+  final ea = new JaguarExampleApi();
 
   jaguar.Configuration configuration =
       new jaguar.Configuration(multiThread: true);

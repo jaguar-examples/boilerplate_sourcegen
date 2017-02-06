@@ -8,7 +8,7 @@ import 'package:jaguar/interceptors.dart';
 part 'api.g.dart';
 
 @RouteGroup(path: '/info')
-class ExampleRouteGroup extends _$JaguarExampleRouteGroup {
+class ExampleRouteGroup {
   @Get()
   @WrapEncodeToJson()
   Map info() => {
@@ -19,7 +19,7 @@ class ExampleRouteGroup extends _$JaguarExampleRouteGroup {
 }
 
 @Api(path: '/api')
-class ExampleApi extends _$JaguarExampleApi {
+class ExampleApi {
   @Group()
   final ExampleRouteGroup exampleRoutes = new ExampleRouteGroup();
 
