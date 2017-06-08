@@ -3,7 +3,7 @@
 part of api;
 
 // **************************************************************************
-// Generator: RouteGroupGenerator
+// Generator: ApiGenerator
 // Target: class ExampleRouteGroup
 // **************************************************************************
 
@@ -12,37 +12,20 @@ class JaguarExampleRouteGroup implements RequestHandler {
 
   final ExampleRouteGroup _internal;
 
-  factory JaguarExampleRouteGroup() {
-    final instance = new ExampleRouteGroup();
-    return new JaguarExampleRouteGroup.from(instance);
-  }
-  JaguarExampleRouteGroup.from(this._internal);
+  JaguarExampleRouteGroup(this._internal);
 
   Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/info';
-    PathParams pathParams = new PathParams();
+    final ctx = new Context(request);
     bool match = false;
 
 //Handler for info
-    match =
-        routes[0].match(request.uri.path, request.method, prefix, pathParams);
+    match = routes[0]
+        .match(request.uri.path, request.method, prefix, ctx.pathParams);
     if (match) {
-      Response<Map> rRouteResponse0 = new Response(null);
-      EncodeToJson iEncodeToJson;
-      try {
-        iEncodeToJson = new WrapEncodeToJson().createInterceptor();
-        rRouteResponse0.statusCode = 200;
-        rRouteResponse0.headers
-            .set('content-type', 'text/plain; charset=utf-8');
-        rRouteResponse0.value = _internal.info();
-        Response<String> rRouteResponse1 = iEncodeToJson.post(
-          rRouteResponse0,
-        );
-        return rRouteResponse1;
-      } catch (e) {
-        await iEncodeToJson?.onException();
-        rethrow;
-      }
+      final interceptorCreators = <InterceptorCreator>[];
+      return await Interceptor.chain(
+          ctx, interceptorCreators, _internal.info, routes[0]);
     }
 
     return null;
@@ -62,33 +45,22 @@ class JaguarExampleApi implements RequestHandler {
   final ExampleApi _internal;
   final JaguarExampleRouteGroup _exampleRoutesInternal;
 
-  factory JaguarExampleApi() {
-    final instance = new ExampleApi();
-    return new JaguarExampleApi.from(instance);
-  }
-  JaguarExampleApi.from(this._internal)
+  JaguarExampleApi(this._internal)
       : _exampleRoutesInternal =
-            new JaguarExampleRouteGroup.from(_internal.exampleRoutes);
+            new JaguarExampleRouteGroup(_internal.exampleRoutes);
 
   Future<Response> handleRequest(Request request, {String prefix: ''}) async {
     prefix += '/api';
-    PathParams pathParams = new PathParams();
+    final ctx = new Context(request);
     bool match = false;
 
 //Handler for version
-    match =
-        routes[0].match(request.uri.path, request.method, prefix, pathParams);
+    match = routes[0]
+        .match(request.uri.path, request.method, prefix, ctx.pathParams);
     if (match) {
-      Response<num> rRouteResponse0 = new Response(null);
-      try {
-        rRouteResponse0.statusCode = 200;
-        rRouteResponse0.headers
-            .set('content-type', 'text/plain; charset=utf-8');
-        rRouteResponse0.value = _internal.version();
-        return rRouteResponse0;
-      } catch (e) {
-        rethrow;
-      }
+      final interceptorCreators = <InterceptorCreator>[];
+      return await Interceptor.chain(
+          ctx, interceptorCreators, _internal.version, routes[0]);
     }
 
     {
