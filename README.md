@@ -5,4 +5,4 @@ simple usage of `Api`, `IncludeApi`, `jaguar.yaml` configuration file and `jagua
 
 ## Inststructions
 
-Instructions can be found at https://jaguar-dart.github.io/getting_started.html
+Instructions can be found at https://jaguar-dart.github.io/tour/get_started/  
